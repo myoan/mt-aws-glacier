@@ -192,6 +192,7 @@ sub get_option_ref
 	}
 }
 
+use Data::Dumper;
 sub parse_options
 {
 	(my $self, local @ARGV) = @_; # we override @ARGV here, cause GetOptionsFromArray is not exported on perl 5.8.8
@@ -352,10 +353,12 @@ sub parse_options
 				}
 			}
 		}
+        print Dumper $self->{data};
 
 		unless ($self->{errors}) {
 			$self->unflatten_scope();
 		}
+        print Dumper $self->{data};
 	}
 
 	$self->{error_texts} = [ $self->errors_or_warnings_to_messages($self->{errors}) ];

@@ -1,0 +1,7 @@
+---
+key:    XXXXXXXXXXXXXXXXXXXX
+secret: XXXXXXXXXXXXXXXXXXXX
+region: XXXXXXXXXXXXXXXXXXXX
+protocol: http or https
+concurrency: X
+mt-glacier-cfg: glacier.cfg

@@ -49,8 +49,11 @@ sub new
 
 	confess unless $self->{protocol} =~ /^https?$/; # we check external data here, even if it's verified in the beginning, especially if it's used to construct URL
 	$self->{service} ||= 'glacier';
-	$self->{account_id} = '-';
-	$self->{host} = "$self->{service}.$self->{region}.amazonaws.com";
+	$self->{account_id} = '~';
+    #$self->{account_id} = '-';
+	$self->{host} = "localhost:3000";
+    #$self->{host} = "$self->{service}.$self->{region}.amazonaws.com";
+    print "$self->{host}\n";
 
 	$self->{headers} = [];
 
@@ -468,9 +471,11 @@ sub perform_lwp
 		if ($self->{content_file} && $self->{writer}) {
 			confess "content_file and writer at same time";
 		} elsif ($self->{content_file}) {
+            print $req->as_string;
 			$resp = $ua->request($req, $self->{content_file});
 		} elsif ($self->{writer}) {
 			my $size = undef;
+            print $req->as_string;
 			$resp = $ua->request($req, sub {
 				unless (defined($size)) {
 					if ($_[1] && $_[1]->isa('HTTP::Response')) {
@@ -490,6 +495,7 @@ sub perform_lwp
 				1;
 			});
 		} else {
+            print $req->as_string;
 			$resp = $ua->request($req);
 		}
 		my $dt = time()-$t0;
